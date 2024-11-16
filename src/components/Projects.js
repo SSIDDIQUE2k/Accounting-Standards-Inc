@@ -1,55 +1,120 @@
-import React from 'react';
+import React, { useState } from "react";
 import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
-import ProjectsData from "./ProjectsData";
+import ProjectsData from "./ServicesData";
+import { Link } from "react-scroll";
 
 const Projects = () => {
   return (
-    <section className="text-gray-600 body-font">
-      <div className="px-3 py-5 mx-auto text-center sm:mx-6 md:mx-12 md:pt-5 md:mt-5 xl:mx-40">
-        <div id="projects" className="flex flex-wrap w-full flex-col items-center text-center">
-          <h1 className="sm:text-4xl text-3xl font-medium title-font mb-3 text-gray-900">
-            Projects
+    <section
+      id="services" // Added correct id for scrolling
+      className="text-gray-800 body-font bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50 py-16"
+    >
+      <div className="container px-6 mx-auto">
+        {/* Header Section */}
+        <div id="projects" className="flex flex-col items-center text-center mb-12">
+          <h1 className="text-4xl sm:text-5xl font-extrabold title-font mb-4 text-gray-900">
+            Our Services
           </h1>
-          <p data-aos="zoom-in" data-aos-duration="1000" data-aos-once="false" className="text-lg font-medium leading-relaxed text-dark-orange">
-            My Works
+          <p
+            data-aos="zoom-in"
+            data-aos-duration="1000"
+            data-aos-once="true"
+            className="text-lg sm:text-xl font-medium leading-relaxed text-gray-600 max-w-3xl"
+          >
+            Explore the services we provide for businesses and individuals. Let
+            us assist you with your accounting and financial needs.
           </p>
         </div>
-        <div className="mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-12 sm:gap-x-3 md:gap-x-5 lg:gap-x-2 lg:gap-y-5 xl:gap-y-10 xl:gap-x-5 mt-4 md:mt-8 ">
-          {ProjectsData.reverse().map((project) => (
-            <div data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="false" key={project.id} className="group relative flex flex-col flex-wrap h-80 w-[95%] mx-auto shadow-xl rounded-xl ">
-              <img src={project.image} alt={project.name} className="h-80 rounded-xl"/>
-              <div className="absolute flex flex-col justify-center items-center bottom-0 left-0 right-0 h-0 overflow-hidden group-hover:h-full transition-[height_0.5s] duration-500 bg-darkblue rounded-xl">
-                <h3 data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="false" className="text-2xl font-medium text-white my-2">{project.name}</h3>
-                <p data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="false" className="px-2 text-lg text-white">{project.description}</p>
-                <div data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="false" className="flex flex-wrap items-center gap-3 mt-3">
-                  {project?.icons?.map((Icon, index) => (
-                    <div className="rounded-full p-2" key={index}>
-                      <Icon className="text-white text-4xl font-bold" />
-                    </div>
-                  ))}
-                </div>
-                <div data-aos="zoom-in-up" data-aos-duration="1000" data-aos-once="false" className="flex gap-7 justify-center items-center my-7 text-2xl">
-                  {project.github && (
-                    <div className="bg-white rounded-full p-2">
-                      <a className="text-darkblue text-xl bg-white" href={project.github} target="_blank" rel="noopener noreferrer">
-                        <FaGithub />
-                      </a>
-                    </div>
-                  )}
-                  {project.demo && (
-                    <div className="bg-white rounded-full p-2">
-                      <a className="text-darkblue text-xl bg-white" href={project.demo} target="_blank" rel="noopener noreferrer">
-                        <FaExternalLinkAlt className="p-[1px]" />
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+
+        {/* Services Grid */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {ProjectsData.map((service) => (
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
+
+        {/* Scroll to Top Button */}
+       
       </div>
     </section>
+  );
+};
+
+const ServiceCard = ({ service }) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleDetails = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <div className="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 hover:-translate-y-2 relative">
+      {/* Service Icon */}
+      <div className="w-16 h-16 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full mb-6 mx-auto">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-8 h-8"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M8 16l-4-4m0 0l4-4m-4 4h16m-6-4v8"
+          />
+        </svg>
+      </div>
+
+      {/* Service Title */}
+      <h3 className="text-xl font-semibold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors">
+        {service.name}
+      </h3>
+
+      {/* Toggle Button */}
+      <button
+        onClick={toggleDetails}
+        className={`text-white px-4 py-2 rounded-lg font-medium transition-colors duration-300 ${
+          isVisible
+            ? "bg-red-600 hover:bg-red-700"
+            : "bg-blue-600 hover:bg-blue-700"
+        }`}
+      >
+        {isVisible ? "Hide Details" : "View Details"}
+      </button>
+
+      {/* Service Details */}
+      {isVisible && (
+        <div className="mt-4 text-gray-600 text-base transition-opacity duration-300">
+          <p>{service.description}</p>
+        </div>
+      )}
+
+      {/* Call-to-Action Buttons */}
+      <div className="flex items-center justify-center gap-4 mt-6">
+        {service.github && (
+          <a
+            href={service.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-800 transition-all"
+          >
+            <FaGithub />
+          </a>
+        )}
+        {service.demo && (
+          <a
+            href={service.demo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center w-10 h-10 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-800 transition-all"
+          >
+            <FaExternalLinkAlt />
+          </a>
+        )}
+      </div>
+    </div>
   );
 };
 

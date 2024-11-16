@@ -12,12 +12,12 @@ const links = [
     title: "About",
     link: "about",
   },
+  // {
+  //   title: "Skills",
+  //   link: "skills",
+  // },
   {
-    title: "Skills",
-    link: "skills",
-  },
-  {
-    title: "Projects",
+    title: "Services",
     link: "projects",
   },
   {
@@ -49,7 +49,7 @@ const Navbar = () => {
         >
           <img
             className="w-15 h-14 ml-3 cursor-pointer scale-125 lg:scale-150 lg:ml-10"
-            src={require("../assets/Images/Shazib1.png")}
+            src={require("../assets/Images/acctlogo.png")}
             alt="Shazib"
           />
         </Link>
