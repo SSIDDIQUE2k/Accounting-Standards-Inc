@@ -1,7 +1,13 @@
 import React, { useState } from "react";
-import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import {
+  FaBriefcase,
+  FaChartLine,
+  FaMoneyCheckAlt,
+  FaCalculator,
+  FaPiggyBank,
+  FaRegCreditCard,
+} from "react-icons/fa";
 import ProjectsData from "./ServicesData";
-import { Link } from "react-scroll";
 
 const Projects = () => {
   return (
@@ -32,9 +38,6 @@ const Projects = () => {
             <ServiceCard key={service.id} service={service} />
           ))}
         </div>
-
-        {/* Scroll to Top Button */}
-       
       </div>
     </section>
   );
@@ -47,24 +50,31 @@ const ServiceCard = ({ service }) => {
     setIsVisible(!isVisible);
   };
 
+  // Map service names to specific icons
+  const getServiceIcon = (name) => {
+    switch (name) {
+      case "Corp Tax Return":
+        return <FaBriefcase className="text-blue-600 text-2xl" />;
+      case "Individual Tax Return":
+        return <FaChartLine className="text-blue-600 text-2xl" />;
+      case "Nationwide Startup":
+        return <FaMoneyCheckAlt className="text-blue-600 text-2xl" />;
+      case "Bookkeeping":
+        return <FaCalculator className="text-blue-600 text-2xl" />;
+      case "Financial Statements":
+        return <FaPiggyBank className="text-blue-600 text-2xl" />;
+      case "Sales Tax & Payroll":
+        return <FaRegCreditCard className="text-blue-600 text-2xl" />;
+      default:
+        return <FaBriefcase className="text-blue-600 text-2xl" />;
+    }
+  };
+
   return (
     <div className="group bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 border border-gray-200 hover:-translate-y-2 relative">
       {/* Service Icon */}
       <div className="w-16 h-16 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full mb-6 mx-auto">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-8 h-8"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M8 16l-4-4m0 0l4-4m-4 4h16m-6-4v8"
-          />
-        </svg>
+        {getServiceIcon(service.name)}
       </div>
 
       {/* Service Title */}
@@ -90,30 +100,6 @@ const ServiceCard = ({ service }) => {
           <p>{service.description}</p>
         </div>
       )}
-
-      {/* Call-to-Action Buttons */}
-      <div className="flex items-center justify-center gap-4 mt-6">
-        {service.github && (
-          <a
-            href={service.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center w-10 h-10 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-800 transition-all"
-          >
-            <FaGithub />
-          </a>
-        )}
-        {service.demo && (
-          <a
-            href={service.demo}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center w-10 h-10 bg-green-600 text-white rounded-full shadow-lg hover:bg-green-800 transition-all"
-          >
-            <FaExternalLinkAlt />
-          </a>
-        )}
-      </div>
     </div>
   );
 };
