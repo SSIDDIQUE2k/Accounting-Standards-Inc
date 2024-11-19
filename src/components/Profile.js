@@ -49,8 +49,8 @@ const Profile = () => {
             <Typewriter
               words={["Financial Services", "Tax Consultancy", "Business Solutions"]}
               loop={false}
-              typeSpeed={100}
-              deleteSpeed={100}
+              typeSpeed={30}
+              deleteSpeed={30}
               delaySpeed={1000}
             />
           </div>
